@@ -10471,9 +10471,164 @@ a.text-dark:focus {
   }
 }
 
+.form-item {
+  padding: 13px 13px;
+  -webkit-animation: slide-up-additional 0.4s ease;
+          animation: slide-up-additional 0.4s ease;
+  background: rgba(255, 255, 255, 0.6);
+  margin-bottom: 21px;
+  border-radius: 13px;
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+}
+
+.form-item:first-of-type {
+  -webkit-animation: show-up 0.4s ease;
+          animation: show-up 0.4s ease;
+}
+
+.form-item:first-of-type .close {
+  display: none;
+}
+
+.form-item:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.items-container {
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.autocomplete {
+  position: relative !important;
+}
+
+.autocomplete > div {
+  position: relative !important;
+}
+
+.autocomplete > div > div {
+  z-index: 99999999 !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 37px !important;
+  overflow: scroll !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  padding: 0 !important;
+  max-height: 400px !important;
+}
+
+.autocomplete .suggestion {
+  padding: 8px 12px !important;
+}
+
+.hidden {
+  display: none;
+}
+
+@-webkit-keyframes show-up {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes show-up {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes slide-up-additional {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+    height: 0;
+  }
+
+  50% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    height: 193px;
+  }
+}
+
+@keyframes slide-up-additional {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+    height: 0;
+  }
+
+  50% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    height: 193px;
+  }
+}
+
+/* Turn on custom 8px wide scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+  /* 1px wider than Lion. */
+  /* This is more usable for users trying to click it. */
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-border-radius: 100px;
+}
+
+/* hover effect for both scrollbar area, and scrollbar 'thumb' */
+
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+
+/* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
+
+::-webkit-scrollbar-thumb:vertical {
+  /* This is the EXACT color of Mac OS scrollbars.
+     Yes, I pulled out digital color meter */
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 100px;
+  background-clip: padding-box;
+  border: 2px solid rgba(0, 0, 0, 0);
+  min-height: 10px;
+  /*Prevent it from getting too small */
+}
+
+::-webkit-scrollbar-thumb:vertical:active {
+  background: rgba(0, 0, 0, 0.61);
+  /* Some darker color when you click it */
+  -webkit-border-radius: 100px;
+}
+
 .navbar-laravel {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  padding: 5vw 0;
+  overflow-y: scroll;
 }
 

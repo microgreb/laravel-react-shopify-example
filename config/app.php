@@ -161,9 +161,15 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
-         * Custom Mode Service Providers
+         * Custom Model Service Providers
          */
-        \App\Providers\Model\UserModelServiceProvider::class
+        \App\Providers\Model\UserModelServiceProvider::class,
+        \App\Providers\Model\SubmissionModelProvider::class,
+
+        /*
+         * Custom Service Providers
+         */
+        \App\Providers\MacroServiceProvider::class,
 
     ],
 

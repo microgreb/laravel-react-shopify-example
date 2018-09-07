@@ -13,3 +13,6 @@
 */
 
 Route::get('customers', 'ShopifyCustomerController@getCustomers');
+Route::get('customers/simple', 'ShopifyCustomerController@getCustomersSimplified');
+
+Route::post('submissions', 'SubmissionController@store');

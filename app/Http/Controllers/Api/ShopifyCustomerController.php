@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Facades\ShopifyDataProvider;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ShopifyCustomer;
-use App\Http\Resources\ShopifyCustomers as ShopifyCustomerResource;
+use App\Transformers\ShopifyCustomerSimpleTransformer;
+use Spatie\Fractal\FractalFacade;
 
 /**
  * Class ShopifyCustomerController
@@ -22,5 +22,15 @@ class ShopifyCustomerController extends Controller
     public function getCustomers()
     {
         return ShopifyDataProvider::getCustomers();
+    }
+
+    /**
+     * Get All Customers, Full Name & Phone only.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getCustomersSimplified()
+    {
+       return FractalFacade::collection(ShopifyDataProvider::getCustomers())->transformWith(new ShopifyCustomerSimpleTransformer())->toArray();
     }
 }

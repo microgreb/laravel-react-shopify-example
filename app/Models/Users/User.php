@@ -30,6 +30,10 @@ use Lunaweb\EmailVerification\Contracts\CanVerifyEmail as CanVerifyEmailContract
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $email_verified_at
+ * @property bool $verified
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Users\User whereVerified($value)
  */
 class User extends Authenticatable implements CanVerifyEmailContract
 {

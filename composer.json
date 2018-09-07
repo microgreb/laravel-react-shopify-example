@@ -10,11 +10,15 @@
         "barryvdh/laravel-ide-helper": "^2.5",
         "doctrine/dbal": "^2.8",
         "fideloper/proxy": "^4.0",
+        "gmopx/laravel-owm": "^0.1.3",
         "josiasmontag/laravel-email-verification": "^1.2",
         "laravel/framework": "5.6.*",
         "laravel/passport": "^7.0",
         "laravel/tinker": "^1.0",
-        "ohmybrew/basic-shopify-api": "^3.0"
+        "league/fractal": "^0.17.0",
+        "ohmybrew/basic-shopify-api": "^3.0",
+        "spatie/laravel-fractal": "^5.4",
+        "stevebauman/location": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
