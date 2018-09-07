@@ -2,7 +2,6 @@
 
 namespace App\Http\Client\Shopify;
 
-use Illuminate\Database\Eloquent\Collection;
 use OhMyBrew\BasicShopifyAPI;
 
 /**
@@ -54,7 +53,25 @@ class ShopifyApiClient
     public function getCustomers()
     {
         try {
-            $customers = $this->api->rest('GET', '/admin/customers.json')->body->customers;
+            $customers = $this->api->rest('GET', '/admin/customers.json')->body->customers ?? [];
+        } catch (\Exception $exception) {
+            throw new \Exception('Failed to obtain shopify resources.');
+        }
+
+        return $this->response($customers);
+    }
+
+    /**
+     * Search Shopify Customers
+     *
+     * @param string $query
+     * @return array|\Illuminate\Support\Collection
+     * @throws \Exception
+     */
+    public function searchCustomers(string $query)
+    {
+        try {
+            $customers = $this->api->rest('GET', '/admin/customers/search.json?query='.$query.'*')->body->customers ?? [];
         } catch (\Exception $exception) {
             throw new \Exception('Failed to obtain shopify resources.');
         }

@@ -31,6 +31,17 @@ class ShopifyCustomerController extends Controller
      */
     public function getCustomersSimplified()
     {
-       return FractalFacade::collection(ShopifyDataProvider::getCustomers())->transformWith(new ShopifyCustomerSimpleTransformer())->toArray();
+        return FractalFacade::collection(ShopifyDataProvider::getCustomers())->transformWith(new ShopifyCustomerSimpleTransformer())->toArray();
+    }
+
+    /**
+     * Get Customers according to search condition
+     *
+     * @param $name
+     * @return mixed
+     */
+    public function search($name)
+    {
+        return FractalFacade::collection(ShopifyDataProvider::searchCustomers($name))->transformWith(new ShopifyCustomerSimpleTransformer())->toArray();
     }
 }

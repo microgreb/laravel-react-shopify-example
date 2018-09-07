@@ -16,10 +16,10 @@ use Stevebauman\Location\Facades\Location;
 class SubmissionObserver
 {
     /**
-     * Handle the user "created" event.
+     * Handle the Submission "created" event.
      *
-     * @param  \App\Models\Submission $submission
-     * @return void
+     * @param \App\Models\Submission $submission
+     * @throws \Exception
      */
     public function created(Submission $submission)
     {
@@ -32,6 +32,7 @@ class SubmissionObserver
      * Create Submission Details
      *
      * @param \App\Models\Submission $submission
+     * @throws \Exception
      */
     private function createSubmissionDetails(Submission $submission)
     {

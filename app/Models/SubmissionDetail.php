@@ -20,7 +20,7 @@ namespace App\Models;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Submission $submission
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmissionDetail whereCountryCode($value)
+ * @method static SubmissionDetail whereCountryCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmissionDetail whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmissionDetail whereHumidity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubmissionDetail whereId($value)

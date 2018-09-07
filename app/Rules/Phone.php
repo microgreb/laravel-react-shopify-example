@@ -25,7 +25,7 @@ class Phone implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^[a-z0-9) xX.(-]+$/i', $value);
+        return preg_match('/^[0-9) xX.(-]+$/i', $value);
     }
 
     /**

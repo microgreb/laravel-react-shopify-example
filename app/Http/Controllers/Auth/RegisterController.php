@@ -73,10 +73,10 @@ class RegisterController extends Controller
     }
 
     /**
-     * Store the user's verification
+     * Verify Email
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
-     * @return boolean
+     * @param $user
+     * @return bool
      */
     protected function verifiedEmail($user)
     {

@@ -6,12 +6,16 @@ use Illuminate\Contracts\Validation\Rule;
 
 class LeastOne implements Rule
 {
+    /**
+     * @var
+     */
     protected $attributeName;
 
     /**
+     * LeastOne constructor
      * Create a new rule instance.
      *
-     * @return void
+     * @param $attributeName
      */
     public function __construct($attributeName)
     {
