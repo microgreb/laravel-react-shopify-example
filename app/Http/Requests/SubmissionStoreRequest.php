@@ -26,7 +26,7 @@ class SubmissionStoreRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'submissions.*.full_name' => 'required|regex:/^[a-zA-Z\s]+$/|max:30',
+            'submissions.*.full_name' => 'required|regex:/^[a-zA-ZА-ЯЦцУуШшЩщФфЫыРрЭэЧчТтЬьЮюЪъХхЁа-яё1\s]+$/|max:30',
             'submissions.*.phone' => ['required', 'string', 'max:50', new Phone],
             'submissions' => [new LeastOne('isLeader')],
         ];

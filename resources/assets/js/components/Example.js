@@ -100,7 +100,7 @@ export default class Example extends Component {
         let autocompleteInputProps = {
             className: 'form-control',
             type: 'text',
-            pattern: '^[a-zA-Z\\s]+$'
+            pattern: '^[a-zA-ZА-Яа-я\\s]+$'
         };
 
         return (
