@@ -172,7 +172,7 @@ export default class Example extends Component {
                                     onClick={this.submitForm.bind(this)}>
                                 Submit
                             </button>
-                            <button type="submit" className="btn btn-primary float-right"
+                            <button type="button" className="btn btn-primary float-right"
                                     onClick={this.addCustomerRow.bind(this)}>
                                 Add Row
                             </button>

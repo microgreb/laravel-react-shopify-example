@@ -36673,7 +36673,7 @@ var Example = function (_Component) {
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'button',
-                                { type: 'submit', className: 'btn btn-primary float-right',
+                                { type: 'button', className: 'btn btn-primary float-right',
                                     onClick: this.addCustomerRow.bind(this) },
                                 'Add Row'
                             )
