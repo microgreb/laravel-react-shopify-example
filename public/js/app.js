@@ -36437,12 +36437,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Example = function (_Component) {
     _inherits(Example, _Component);
 
+    /**
+     *
+     * @param props
+     */
     function Example(props) {
         _classCallCheck(this, Example);
 
         var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this, props));
 
         _this.state = {
+            error: {
+                header: 'Error',
+                message: null
+            },
             customer: {
                 full_name: '',
                 phone: ''
@@ -36469,14 +36477,30 @@ var Example = function (_Component) {
 
             axios.get('/api/customers/simple').then(function (res) {
                 _this2.setState({ suggestions: res.data.data });
+            }).catch(function (error) {
+                _this2.setState({
+                    error: {
+                        header: error.response.statusText,
+                        message: error.response.data.message
+                    }
+                });
             });
         }
     }, {
         key: 'submitForm',
         value: function submitForm() {
+            var _this3 = this;
+
             console.log('submitform');
             axios.post('/api/submissions', { submissions: this.state.customers }).then(function (res) {
                 console.log(res);
+            }).catch(function (error) {
+                _this3.setState({
+                    error: {
+                        header: error.response.statusText,
+                        message: error.response.data.message
+                    }
+                });
             });
         }
     }, {
@@ -36521,111 +36545,138 @@ var Example = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this4 = this;
 
             var component = this;
             var autocompleteInputProps = {
-                className: 'form-control'
+                className: 'form-control',
+                type: 'text',
+                pattern: '^[a-zA-Z\\s]+$'
             };
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'row justify-content-md-center' },
+                    'form',
+                    null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'col-md-6 items-container' },
+                        { className: 'row justify-content-md-center' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'h2',
-                            null,
-                            'Please, fill out the form'
-                        ),
-                        this.state.customers.map(function (customer, index) {
-                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'col-md-6 items-container' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'h2',
+                                null,
+                                'Please, fill out the form'
+                            ),
+                            this.state.error.message ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'div',
-                                { key: index, className: 'form-item' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    { className: 'form-group autocomplete' },
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'label',
-                                        null,
-                                        'Name'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'button',
-                                        { onClick: _this3.removeCustomerRow.bind(_this3, index),
-                                            type: 'button', className: 'close pull-right', 'aria-label': 'Close' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'span',
-                                            { 'aria-hidden': 'true' },
-                                            '\xD7'
-                                        )
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_autocomplete___default.a, {
-                                        inputProps: autocompleteInputProps,
-                                        wrapperStyle: {},
-                                        shouldItemRender: function shouldItemRender(item, customer) {
-                                            return customer.length > 0;
-                                        },
-                                        getItemValue: function getItemValue(item) {
-                                            return item.full_name;
-                                        },
-                                        items: _this3.state.suggestions,
-                                        renderItem: function renderItem(item, isHighlighted) {
-                                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                                'div',
-                                                { key: item.full_name,
-                                                    className: item.full_name.toLowerCase().includes(customer.full_name.toLowerCase()) ? 'suggestion' : 'hidden',
-                                                    style: { background: isHighlighted ? 'lightgray' : 'white' } },
-                                                item.full_name
-                                            );
-                                        },
-                                        value: customer.full_name,
-                                        onChange: _this3.handleCustomerNameChange.bind(_this3, index),
-                                        onSelect: function onSelect(item, label) {
-                                            return component.onSuggestSelect(_this3, index, item, label);
-                                        }
-                                    })
-                                ),
+                                { className: 'form-item error-item' },
                                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'div',
                                     { className: 'form-group' },
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'label',
+                                        'h3',
                                         null,
-                                        'Phone'
+                                        'Server error'
                                     ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-                                        onChange: _this3.handleCustomerPhoneChange.bind(_this3, index),
-                                        value: customer.phone,
-                                        type: 'text',
-                                        className: 'form-control',
-                                        placeholder: 'Phone' })
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'p',
+                                        null,
+                                        this.state.error.message
+                                    )
                                 )
-                            );
-                        })
-                    )
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'row justify-content-md-center' },
+                            ) : null,
+                            this.state.customers.map(function (customer, index) {
+                                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'div',
+                                    { key: index, className: 'form-item' },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'form-group autocomplete' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'label',
+                                            null,
+                                            'Name'
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'button',
+                                            { onClick: _this4.removeCustomerRow.bind(_this4, index),
+                                                type: 'button', className: 'close pull-right', 'aria-label': 'Close' },
+                                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                'span',
+                                                { 'aria-hidden': 'true' },
+                                                '\xD7'
+                                            )
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_autocomplete___default.a, {
+                                            inputProps: autocompleteInputProps,
+                                            wrapperStyle: {},
+                                            shouldItemRender: function shouldItemRender(item, customer) {
+                                                return customer.length > 0;
+                                            },
+                                            getItemValue: function getItemValue(item) {
+                                                return item.full_name;
+                                            },
+                                            items: _this4.state.suggestions,
+                                            renderItem: function renderItem(item, isHighlighted) {
+                                                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                                    'div',
+                                                    { key: item.full_name,
+                                                        className: item.full_name.toLowerCase().includes(customer.full_name.toLowerCase()) ? 'suggestion' : 'hidden',
+                                                        style: { background: isHighlighted ? 'lightgray' : 'white' } },
+                                                    item.full_name
+                                                );
+                                            },
+                                            value: customer.full_name,
+                                            onChange: _this4.handleCustomerNameChange.bind(_this4, index),
+                                            onSelect: function onSelect(item, label) {
+                                                return component.onSuggestSelect(_this4, index, item, label);
+                                            }
+                                        })
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'form-group' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'label',
+                                            null,
+                                            'Phone'
+                                        ),
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                                            onChange: _this4.handleCustomerPhoneChange.bind(_this4, index),
+                                            value: customer.phone,
+                                            type: 'text',
+                                            className: 'form-control',
+                                            placeholder: 'Phone',
+                                            required: true,
+                                            pattern: '^[0-9) xX.(-]+$'
+                                        })
+                                    )
+                                );
+                            })
+                        )
+                    ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        { className: 'col-md-6' },
+                        { className: 'row justify-content-md-center' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'button',
-                            { type: 'submit', className: 'btn btn-success',
-                                onClick: this.submitForm.bind(this) },
-                            'Submit'
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'button',
-                            { type: 'submit', className: 'btn btn-primary float-right',
-                                onClick: this.addCustomerRow.bind(this) },
-                            'Add Row'
+                            'div',
+                            { className: 'col-md-6' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'button',
+                                { type: 'submit', className: 'btn btn-success',
+                                    onClick: this.submitForm.bind(this) },
+                                'Submit'
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'button',
+                                { type: 'submit', className: 'btn btn-primary float-right',
+                                    onClick: this.addCustomerRow.bind(this) },
+                                'Add Row'
+                            )
                         )
                     )
                 )

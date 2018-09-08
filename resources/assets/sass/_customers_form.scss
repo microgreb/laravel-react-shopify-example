@@ -9,7 +9,7 @@
   &:first-of-type {
     animation: show-up 0.4s ease;
     .close {
-      display:none;
+      display: none;
     }
   }
   &:nth-child(odd) {
@@ -17,31 +17,34 @@
   }
 }
 
+.error-item {
+  background-color: rgba(227, 52, 47, 0.1);
+}
+
 .items-container {
   transition: all 1s ease;
 }
 
 .autocomplete {
-  position:relative !important;
+  position: relative !important;
   > div {
-    position:relative !important;
+    position: relative !important;
     > div {
-      z-index:99999999 !important;
-      position:absolute !important;
-      left:0 !important;
-      top:37px !important;
-      overflow:scroll !important;
-      overflow-x:hidden !important;
-      height:auto !important;
+      z-index: 99999999 !important;
+      position: absolute !important;
+      left: 0 !important;
+      top: 37px !important;
+      overflow: scroll !important;
+      overflow-x: hidden !important;
+      height: auto !important;
       padding: 0 !important;
-      max-height:400px !important;
+      max-height: 400px !important;
     }
   }
   .suggestion {
-    padding:8px 12px !important;
+    padding: 8px 12px !important;
   }
 }
-
 
 .hidden {
   display: none;
@@ -61,13 +64,13 @@
   0% {
     opacity: 0;
     transform: translateY(-10px);
-    height:0;
+    height: 0;
   }
   50% {
     transform: translateY(0);
   }
   100% {
     opacity: 1;
-    height:193px;
+    height: 193px;
   }
 }

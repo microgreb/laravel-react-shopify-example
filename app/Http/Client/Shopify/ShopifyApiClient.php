@@ -47,8 +47,8 @@ class ShopifyApiClient
      */
     private function validateConfiguration()
     {
-        if (! env('SHOPIFY_SHOP_URL') || ! env('SHOPIFY_KEY') || env('SHOPIFY_PASSWORD')) {
-            throw new \Exception('Shopify Configuration env is not set');
+        if (! env('SHOPIFY_SHOP_URL') || ! env('SHOPIFY_KEY') || ! env('SHOPIFY_PASSWORD')) {
+            throw new \Exception('Shopify configuration env is not set');
         }
     }
 

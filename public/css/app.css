@@ -10495,6 +10495,10 @@ a.text-dark:focus {
   background: rgba(255, 255, 255, 0.8);
 }
 
+.error-item {
+  background-color: rgba(227, 52, 47, 0.1);
+}
+
 .items-container {
   -webkit-transition: all 1s ease;
   transition: all 1s ease;
