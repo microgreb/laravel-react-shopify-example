@@ -45,6 +45,11 @@ class ShopifyCustomerController extends Controller
         return FractalFacade::collection(ShopifyDataProvider::searchCustomers($name))->transformWith(new ShopifyCustomerSimpleTransformer())->toArray();
     }
 
+    /**
+     * Get Customers Count
+     *
+     * @return mixed
+     */
     public function getCustomersCount()
     {
         return ShopifyDataProvider::getTotalCustomersCount();
