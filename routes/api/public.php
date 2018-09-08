@@ -14,6 +14,7 @@
 
 Route::get('customers', 'ShopifyCustomerController@getCustomers');
 Route::get('customers/simple', 'ShopifyCustomerController@getCustomersSimplified');
+Route::get('customers/count', 'ShopifyCustomerController@getCustomersCount');
 Route::get('customers/search/name/{name}', 'ShopifyCustomerController@search');
 
 Route::post('submissions', 'SubmissionController@store');

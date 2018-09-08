@@ -19,18 +19,37 @@ class ShopifyApiClient
      */
     protected $api;
 
+    /**
+     * @var bool
+     */
     protected $isCollectionResponse = true;
 
     /**
      * Class Initialization
      *
+     * @throws \Exception
      */
     public function boot()
     {
         $this->api = new BasicShopifyAPI(true);
-        $this->api->setShop('dev-giraffe.myshopify.com');
-        $this->api->setApiKey('8522e497732817fa8a36d4a36b6749da');
-        $this->api->setApiPassword('bb2adc93b8016981af2d0f45c4d3a38d');
+
+        $this->validateConfiguration();
+
+        $this->api->setShop(env('SHOPIFY_SHOP_URL'));
+        $this->api->setApiKey(env('SHOPIFY_KEY'));
+        $this->api->setApiPassword(env('SHOPIFY_PASSWORD'));
+    }
+
+    /**
+     * Shopify credentials check
+     *
+     * @throws \Exception
+     */
+    private function validateConfiguration()
+    {
+        if (! env('SHOPIFY_SHOP_URL') || ! env('SHOPIFY_KEY') || env('SHOPIFY_PASSWORD')) {
+            throw new \Exception('Shopify Configuration env is not set');
+        }
     }
 
     /**
@@ -50,10 +69,22 @@ class ShopifyApiClient
      * @return mixed
      * @throws \Exception
      */
-    public function getCustomers()
+    public function getCustomers(int $count = null)
     {
+        /*
+         * Todo
+         * Note: current shopify customers request limit: 250
+         * Current shopify total users 273
+         *
+         * Potential workaround:
+         * 1) Request Customer multiple times according to total users, return merged
+         * 2) Cache all clients
+         * 3) Use search instead of fetching all (worst - slow)
+         */
+        $count = $count ? $count : $this->getTotalCustomersCount();
+
         try {
-            $customers = $this->api->rest('GET', '/admin/customers.json')->body->customers ?? [];
+            $customers = $this->api->rest('GET', '/admin/customers.json?limit='.$count)->body->customers ?? [];
         } catch (\Exception $exception) {
             throw new \Exception('Failed to obtain shopify resources.');
         }
@@ -77,5 +108,22 @@ class ShopifyApiClient
         }
 
         return $this->response($customers);
+    }
+
+    /**
+     * Get Total Customers Count
+     *
+     * @return int
+     * @throws \Exception
+     */
+    public function getTotalCustomersCount()
+    {
+        try {
+            $count = $this->api->rest('GET', '/admin/customers/count.json')->body->count ?? 250;
+        } catch (\Exception $exception) {
+            throw new \Exception('Failed to obtain shopify resources.');
+        }
+
+        return (int) $count;
     }
 }
